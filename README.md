@@ -15,6 +15,8 @@ Full design rationale is in the Midterm Report (`docs/midterm_report.pdf`).
 This README documents the **as-built, as-tested** system — every checkmark
 below reflects something that was actually run, not just written.
 
+Deployed version can be found on this link - https://clinical-deterioration-escalation-11.streamlit.app/
+
 ## Quick start
 
 ```bash
