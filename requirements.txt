@@ -3,3 +3,6 @@ pandas
 scikit-learn
 streamlit
 pytest
+fastapi
+uvicorn
+pydantic
