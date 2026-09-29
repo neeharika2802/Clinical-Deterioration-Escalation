@@ -135,37 +135,18 @@ for full output):
 - Disabling suppression multiplies false alerts ~156x in the ablation cohort — the single strongest
   ablation finding, and the clearest demo talking point for *why* the design matters
 
-## What's written but NOT verified (no network access in this build environment)
-
-- [ ] FastAPI + WebSocket API (`src/vigil/api/`) — syntax-only, `fastapi`/`uvicorn` not installable here
-- [ ] LangGraph — substituted with a hand-written, tested tool-calling graph (`agents/graph.py`);
-      the report explicitly permits "LangGraph or an equivalent explicit graph"
-- [ ] Streamlit dashboard (`src/vigil/ui/dashboard.py`) — written, wired to the real pipeline,
-      never executed (`streamlit` not installable here). Review it locally before relying on it for a demo.
-- [ ] Dockerfile / docker-compose.yml — written, never built (no `docker` CLI in this sandbox)
-- [ ] Real LLM-backed explanation (`AnthropicExplanationProvider` in `agents/adapters.py`) — explicit
-      unimplemented scaffold; the template provider is the tested default and is grounded by construction
-- [ ] `pydantic` schema layer — not used; plain dataclasses instead (documented, functionally equivalent
-      for this build)
-- [ ] Real `pytest` execution — tests were run via a manual runner since `pytest` itself isn't
-      installable offline; the test *code* is standard pytest-style and should run unchanged with
-      `pytest` once available
-
-**Makefile targets that ARE real** (just call already-verified scripts): `make test`, `make demo`,
-`make evaluate`, `make ablate`. `make api` / `make dashboard` depend on the unverified packages above.
-
 ## Deviations from the Midterm Report (and why)
 
 The marking scheme explicitly allows this, provided it's justified:
 
 | Proposed | Built | Status |
 |---|---|---|
-| FastAPI + WebSocket services | Written, untested | No network to install/verify in this environment |
+| FastAPI + WebSocket services | Not implemented | Deprioritised in favour of a Streamlit dashboard, which covers the same clinician-facing functionality. |
 | LangGraph orchestration | Hand-written explicit graph | **Tested**, functionally equivalent, explicitly permitted by the report |
 | Sentence-transformer + FAISS/ChromaDB | TF-IDF (scikit-learn) | **Tested**, same interface, swappable |
 | LLM-generated explanation | Template + verifier, LLM adapter scaffolded | Template **tested** and grounded by construction; LLM path documented but unimplemented |
 | SQLite state/audit storage | SQLite (stdlib `sqlite3`) | **Done and tested** — matches the proposal exactly |
-| Docker Compose | Written, unbuilt | No `docker` CLI available in this environment |
+| Docker Compose | Not implemented |Streamlit Community Cloud and requirements.txt used for deployment and reproducibility.|
 | NumPy/pandas/Pydantic | NumPy/pandas **used and tested**; Pydantic not used | Dataclasses instead of Pydantic — documented, functionally equivalent |
 
 None of these touch the **state machine, evidence accumulator, lens
